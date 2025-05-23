@@ -1,5 +1,5 @@
 
-# -*- coding: utf-8 -*-
+
 """
 Copyright (c) No Life Management-2023
 A simple music bot written in discord.py using youtube-dl.
@@ -19,7 +19,7 @@ import discord
 import youtube_dl
 from async_timeout import timeout
 from discord.ext import commands
-# Silence useless bug reports messages
+
 youtube_dl.utils.bug_reports_message = lambda: ''
 class VoiceError(Exception):
 pass
@@ -178,12 +178,9 @@ async def audio_player_task(self):
 while True:
 self.next.clear()
 if not self.loop:
-# Try to get the next song within 3 minutes.
-# If no song will be added to the queue in time,
-# the player will disconnect due to performance
-# reasons.
+
 try:
-async with timeout(180):  # 3 minutes
+async with timeout(180): 
 self.current = await self.songs.get()
 except asyncio.TimeoutError:
 self.bot.loop.create_task(self.stop())
@@ -349,7 +346,7 @@ async def _loop(self, ctx: commands.Context):
         """
 if not ctx.voice_state.is_playing:
 return await ctx.send('Nothing being played at the moment.')
-# Inverse boolean value to loop and unloop.
+
 ctx.voice_state.loop = not ctx.voice_state.loop
 await ctx.message.add_reaction('✅')
 @commands.command(name='play')
